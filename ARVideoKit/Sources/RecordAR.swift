@@ -12,6 +12,13 @@ import ARKit
 import Photos
 import PhotosUI
 
+private var view: Any?
+private var renderEngine: SCNRenderer!
+private var gpuLoop: CADisplayLink!
+private var isResting = false
+private var ARcontentMode: ARFrameMode!
+@available(iOS 11.0, *)
+private var renderer: RenderAR!
 /**
  This class renders the `ARSCNView` or `ARSKView` content with the device's camera stream to generate a video 📹, photo 🌄, live photo 🎇 or GIF 🎆.
 
@@ -148,11 +155,6 @@ import PhotosUI
         view = SceneKit
         setup()
     }
-
-    //MARK: - Deinit
-    deinit {
-        gpuLoop.invalidate()
-    }
     
     //MARK: - threads
     let writerQueue = DispatchQueue(label:"com.ahmedbekhit.WriterQueue")
@@ -160,13 +162,6 @@ import PhotosUI
     let audioSessionQueue = DispatchQueue(label: "com.ahmedbekhit.AudioSessionQueue", attributes: .concurrent)
     
     //MARK: - Objects
-    private var view: Any?
-    private var renderEngine: SCNRenderer!
-    private var gpuLoop: CADisplayLink!
-    private var isResting = false
-    private var ARcontentMode: ARFrameMode!
-    private var renderer: RenderAR!
-
     private var scnView: SCNView!
     private var fileCount = 0
     
@@ -225,9 +220,8 @@ import PhotosUI
             }
             renderEngine = SCNRenderer(device: mtlDevice, options: nil)
             renderEngine.scene = view.scene
-
-            gpuLoop = CADisplayLink(target: WeakProxy(target: self),
-                                    selector: #selector(renderFrame))
+            
+            gpuLoop = CADisplayLink(target: self, selector: #selector(renderFrame))
             gpuLoop.preferredFramesPerSecond = fps.rawValue
             gpuLoop.add(to: .main, forMode: .common)
             
@@ -249,9 +243,8 @@ import PhotosUI
             
             renderEngine = SCNRenderer(device: mtlDevice, options: nil)
             renderEngine.scene = scnView.scene
-
-            gpuLoop = CADisplayLink(target: WeakProxy(target: self),
-                                    selector: #selector(renderFrame))
+            
+            gpuLoop = CADisplayLink(target: self, selector: #selector(renderFrame))
             gpuLoop.preferredFramesPerSecond = fps.rawValue
             gpuLoop.add(to: .main, forMode: .common)
             
@@ -263,9 +256,8 @@ import PhotosUI
             }
             renderEngine = SCNRenderer(device: mtlDevice, options: nil)
             renderEngine.scene = view.scene
-
-            gpuLoop = CADisplayLink(target: WeakProxy(target: self),
-                                    selector: #selector(renderFrame))
+            
+            gpuLoop = CADisplayLink(target: self, selector: #selector(renderFrame))
             gpuLoop.preferredFramesPerSecond = fps.rawValue
             gpuLoop.add(to: .main, forMode: .common)
             
@@ -683,7 +675,7 @@ import PhotosUI
      Recommended to use in the `UIViewController`'s method `func viewWillAppear(_ animated: Bool)`
      - parameter configuration: An object that defines motion and scene tracking behaviors for the session.
     */
-	@objc func prepare(_ configuration: ARConfiguration? = nil) {
+    @objc func prepare(_ configuration: ARConfiguration? = nil) {
         ARcontentMode = contentMode
         onlyRenderWhileRec = onlyRenderWhileRecording
         if let view = view as? ARSCNView {
@@ -708,7 +700,7 @@ import PhotosUI
      
      Recommended to use in the `UIViewController`'s method `func viewWillDisappear(_ animated: Bool)`.
     */
-	@objc func rest() {
+    @objc func rest() {
         ViewAR.orientation = UIInterfaceOrientationMask(ViewAR.orientations)
     }
 }
@@ -782,10 +774,8 @@ extension RecordAR {
 
                 self.adjustPausedTime = false
                 
-                if self.pausedFrameTime != nil && self.resumeFrameTime != nil {
-                    self.pausedFrameTime = self.adjustTime(current: time,
-                                                           resume: self.resumeFrameTime!,
-                                                           pause: self.pausedFrameTime!)
+                if self.pausedFrameTime != nil {
+                    self.pausedFrameTime = self.adjustTime(current: time, resume: self.resumeFrameTime!, pause: self.pausedFrameTime!)
                 } else {
                     self.pausedFrameTime = time
                 }

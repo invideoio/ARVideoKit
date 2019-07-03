@@ -57,17 +57,15 @@ class LivePhotoGenerator {
                         logAR.remove(from: keyFrame)
                         logAR.remove(from: liveFrames)
                         if let livePhoto = photo {
-                            let finalPhoto = PHLivePhotoPlus(photo: livePhoto)
+                            guard let finalPhoto = livePhoto as? PHLivePhotoPlus else { return }
                             finalPhoto.keyPhotoPath = keyLiveFrame
                             finalPhoto.pairedVideoPath = keyLiveFrames
                             finished?(true, finalPhoto, finalPhoto.pairedVideoPath, finalPhoto.keyPhotoPath)
-                            return
                         } else {
-                            let finalPhoto = PHLivePhotoPlus(photo: photo!)
+                            guard let finalPhoto = photo as? PHLivePhotoPlus else { return }
                             finalPhoto.keyPhotoPath = keyLiveFrame
                             finalPhoto.pairedVideoPath = keyLiveFrames
                             finished?(false, finalPhoto, finalPhoto.pairedVideoPath, finalPhoto.keyPhotoPath)
-                            return
                         }
                     }
                 }
