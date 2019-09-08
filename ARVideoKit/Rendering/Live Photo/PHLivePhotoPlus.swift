@@ -21,4 +21,11 @@ import Photos
 @objc public class PHLivePhotoPlus: PHLivePhoto {
     var pairedVideoPath: URL?
     var keyPhotoPath: URL?
+    
+    /// A `PHLivePhoto` object that returns the Live Photo content from `PHLivePhotoPlus`.
+    @objc public var livePhoto: PHLivePhoto?
+    
+    @objc required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

@@ -56,17 +56,19 @@ class LivePhotoGenerator {
                     PHLivePhoto.request(withResourceFileURLs: [keyLiveFrames, keyLiveFrame], placeholderImage: UIImage(cgImage: cgImg), targetSize: .zero, contentMode: .aspectFit) { photo, settings in
                         logAR.remove(from: keyFrame)
                         logAR.remove(from: liveFrames)
-                        if let livePhoto = photo {
-                            guard let finalPhoto = livePhoto as? PHLivePhotoPlus else { return }
-                            finalPhoto.keyPhotoPath = keyLiveFrame
-                            finalPhoto.pairedVideoPath = keyLiveFrames
-                            finished?(true, finalPhoto, finalPhoto.pairedVideoPath, finalPhoto.keyPhotoPath)
-                        } else {
-                            guard let finalPhoto = photo as? PHLivePhotoPlus else { return }
-                            finalPhoto.keyPhotoPath = keyLiveFrame
-                            finalPhoto.pairedVideoPath = keyLiveFrames
-                            finished?(false, finalPhoto, finalPhoto.pairedVideoPath, finalPhoto.keyPhotoPath)
-                        }
+//                        if let livePhoto = photo {
+//                            let finalPhoto = PHLivePhotoPlus(coder: livePhoto)
+//                            finalPhoto.keyPhotoPath = keyLiveFrame
+//                            finalPhoto.pairedVideoPath = keyLiveFrames
+//                            finished?(true, finalPhoto, finalPhoto.pairedVideoPath, finalPhoto.keyPhotoPath)
+//                            return
+//                        } else {
+//                            let finalPhoto = PHLivePhotoPlus(coder: photo!)
+//                            finalPhoto.keyPhotoPath = keyLiveFrame
+//                            finalPhoto.pairedVideoPath = keyLiveFrames
+//                            finished?(false, finalPhoto, finalPhoto.pairedVideoPath, finalPhoto.keyPhotoPath)
+//                            return
+//                        }
                     }
                 }
             })

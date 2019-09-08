@@ -26,8 +26,10 @@ struct RenderAR {
     var time: CFTimeInterval { return CACurrentMediaTime()}
     var rawBuffer: CVPixelBuffer? {
         if let view = view as? ARSCNView {
-            guard let rawBuffer = view.session.currentFrame?.capturedImage else { return nil }
-            return rawBuffer
+            if #available(iOS 13.0, *) {
+                guard let rawBuffer = view.session.currentFrame?.estimatedDepthData else { return nil }
+                return rawBuffer
+            }
         } else if let view = view as? ARSKView {
             guard let rawBuffer = view.session.currentFrame?.capturedImage else { return nil }
             return rawBuffer
@@ -86,12 +88,18 @@ struct RenderAR {
             guard let size = bufferSize else { return nil }
             //UIScreen.main.bounds.size
             var renderedFrame: UIImage?
-            pixelsQueue.sync {
-                renderedFrame = renderEngine.snapshot(atTime: self.time, with: size, antialiasingMode: .none)
-            }
-            if let _ = renderedFrame {
+            if #available(iOS 13.0, *), ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
+                if let arSceneView = view as? ARSCNView {
+                    renderedFrame = arSceneView.snapshot()
+                }
             } else {
-                renderedFrame = renderEngine.snapshot(atTime: time, with: size, antialiasingMode: .none)
+                pixelsQueue.sync {
+                    renderedFrame = renderEngine.snapshot(atTime: self.time, with: size, antialiasingMode: .none)
+                }
+                if let _ = renderedFrame {
+                } else {
+                    renderedFrame = renderEngine.snapshot(atTime: time, with: size, antialiasingMode: .none)
+                }
             }
             guard let buffer = renderedFrame!.buffer else { return nil }
             return buffer
