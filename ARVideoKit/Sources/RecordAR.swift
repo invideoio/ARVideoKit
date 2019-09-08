@@ -181,7 +181,7 @@ private var renderer: RenderAR!
     //Used for checking current recorder status
     var isCapturingPhoto = false
     var isRecordingGIF = false
-    var isRecording = false
+    public var isRecording = false
     var adjustPausedTime = false
     var backFromPause = false
     var recordingWithLimit = false
