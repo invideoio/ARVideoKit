@@ -18,7 +18,7 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     private var session: AVCaptureSession!
     
     private var pixelBufferInput: AVAssetWriterInputPixelBufferAdaptor!
-    private var videoOutputSettings: Dictionary<String, AnyObject>!
+    private var videoOutputSettings: [String: Any]!
     private var audioSettings: [String: Any]?
 
     let audioBufferQueue = DispatchQueue(label: "com.ahmedbekhit.AudioBufferQueue")
@@ -27,6 +27,10 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
     
     var delegate: RecordARDelegate?
     var videoInputOrientation: ARVideoOrientation = .auto
+    
+    func floorValue(_ by: CGFloat) -> CGFloat {
+       return floor(by / 16) * 16
+    }
 
     init(output: URL, width: Int, height: Int, adjustForSharing: Bool, audioEnabled: Bool, orientaions:[ARInputViewOrientation], queue: DispatchQueue, allowMix: Bool) {
         super.init()
@@ -52,9 +56,9 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         //HEVC file format only supports A10 Fusion Chip or higher.
         //to support HEVC, make sure to check if the device is iPhone 7 or higher
         videoOutputSettings = [
-            AVVideoCodecKey: AVVideoCodecType.h264 as AnyObject,
-            AVVideoWidthKey: width as AnyObject,
-            AVVideoHeightKey: height as AnyObject
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoWidthKey: floorValue(CGFloat(width)),
+            AVVideoHeightKey: floorValue(CGFloat(height))
         ]
         
         let attributes: [String: Bool] = [

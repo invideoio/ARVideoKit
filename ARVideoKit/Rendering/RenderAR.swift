@@ -26,10 +26,8 @@ struct RenderAR {
     var time: CFTimeInterval { return CACurrentMediaTime()}
     var rawBuffer: CVPixelBuffer? {
         if let view = view as? ARSCNView {
-            if #available(iOS 13.0, *) {
-                guard let rawBuffer = view.session.currentFrame?.estimatedDepthData else { return nil }
-                return rawBuffer
-            }
+            guard let rawBuffer = view.session.currentFrame?.capturedImage else { return nil }
+            return rawBuffer
         } else if let view = view as? ARSKView {
             guard let rawBuffer = view.session.currentFrame?.capturedImage else { return nil }
             return rawBuffer
@@ -90,7 +88,9 @@ struct RenderAR {
             var renderedFrame: UIImage?
             if #available(iOS 13.0, *), ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
                 if let arSceneView = view as? ARSCNView {
-                    renderedFrame = arSceneView.snapshot()
+                    pixelsQueue.sync {
+                        renderedFrame = arSceneView.snapshot()
+                    }
                 }
             } else {
                 pixelsQueue.sync {

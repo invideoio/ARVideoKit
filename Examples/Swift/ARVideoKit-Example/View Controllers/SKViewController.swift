@@ -64,7 +64,7 @@ class SKViewController: UIViewController, ARSKViewDelegate, RenderARDelegate, Re
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
             configuration.frameSemantics.insert(.personSegmentationWithDepth)
         }
         

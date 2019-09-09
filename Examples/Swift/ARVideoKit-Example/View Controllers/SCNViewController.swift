@@ -74,7 +74,7 @@ class SCNViewController: UIViewController, ARSCNViewDelegate, RenderARDelegate, 
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
         
-        if #available(iOS 13.0, *) {
+        if #available(iOS 13.0, *), ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) {
             configuration.frameSemantics.insert(.personSegmentationWithDepth)
         }
         // Run the view's session
