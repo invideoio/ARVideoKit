@@ -58,7 +58,8 @@ class WritAR: NSObject, AVCaptureAudioDataOutputSampleBufferDelegate {
         videoOutputSettings = [
             AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoWidthKey: floorValue(CGFloat(width)),
-            AVVideoHeightKey: floorValue(CGFloat(height))
+            AVVideoHeightKey: floorValue(CGFloat(height)),
+            AVVideoScalingModeKey : AVVideoScalingModeResizeAspectFill
         ]
         
         let attributes: [String: Bool] = [

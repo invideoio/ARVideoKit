@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N8h-YD-r0X">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="N8h-YD-r0X">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,7 +44,7 @@
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                 <state key="normal" title="  AR SpriteKit App"/>
                                 <connections>
-                                    <segue destination="7Ze-pj-Xqd" kind="show" id="93E-6x-10b"/>
+                                    <segue destination="7Ze-pj-Xqd" kind="presentation" modalPresentationStyle="fullScreen" id="93E-6x-10b"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="21A-pg-4R6">
@@ -55,7 +54,7 @@
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                 <state key="normal" title="  AR SceneKit App"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="aHU-mz-b0b"/>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="aHU-mz-b0b"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -80,10 +79,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMN-9B-haO">
-                                <rect key="frame" x="0.0" y="10" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="467"/>
                             </arscnView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AR w/ SceneKit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCR-qg-FqO">
-                                <rect key="frame" x="97" y="20" width="181" height="65"/>
+                                <rect key="frame" x="97" y="0.0" width="181" height="65"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="181" id="1KA-s7-g4z"/>
@@ -183,7 +182,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69u-dy-9On">
-                                <rect key="frame" x="7" y="20" width="65" height="65"/>
+                                <rect key="frame" x="7" y="0.0" width="65" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="IPA-eO-hiu"/>
                                     <constraint firstAttribute="height" constant="65" id="jVv-es-uhg"/>
@@ -200,7 +199,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="69u-dy-9On" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="7" id="0m6-4F-0Fh"/>
-                            <constraint firstItem="IMN-9B-haO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="4lt-V9-t2E"/>
+                            <constraint firstItem="IMN-9B-haO" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.7" id="4lt-V9-t2E"/>
                             <constraint firstItem="VIM-JP-UzO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="55A-z8-Ex1"/>
                             <constraint firstItem="DJd-jZ-eqw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="8OL-Px-2eA"/>
                             <constraint firstItem="IMN-9B-haO" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="CTc-LN-wCc"/>
@@ -247,10 +246,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <arskView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r4A-6V-dWs">
-                                <rect key="frame" x="0.0" y="10" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arskView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AR w/ SpriteKit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gFb-CP-4Vf">
-                                <rect key="frame" x="97" y="20" width="181" height="65"/>
+                                <rect key="frame" x="97" y="0.0" width="181" height="65"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="Eh7-QO-2TE"/>
@@ -351,7 +350,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o5K-aw-fHf">
-                                <rect key="frame" x="16" y="20" width="65" height="65"/>
+                                <rect key="frame" x="16" y="0.0" width="65" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="NXz-p7-PDZ"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="mTk-zS-NIf"/>
